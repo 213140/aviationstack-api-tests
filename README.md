@@ -2,7 +2,7 @@
 Automated API testing with Python - target API (aviationstack)
 [https://aviationstack.com/?utm_source=Github&utm_medium=Referral&utm_campaign=Public-apis-repo-Best-sellers]
 
-## How to run locally (will be updated)
+## How to run locally
 1. Clone repository
 2. Create virtualenv (`python -m venv .venv`) and activate venv
 3. Install dependencies (`pip install -r requirements.txt`)
@@ -37,3 +37,8 @@ Status codes are checked to ensure correct API behavior for positive and negativ
 Response structure is also validated to confirm that required fields exist and the returned data matches the expected format.  
 
 It helps catch breaking API changes and ensures the responses are usable by clients, not just successful at the HTTP level.
+
+## 🚀 Future/Possible improvements 📈
+
+- 🧪 Introduce response mocking for test_timetable.py and test_timetable_negative, which are related to third-party API license restrictions (429). Since upgrading from a free to a paid license may be costly, mocking would protect tests from flakiness and reduce dependency on external API limitations.
+- 📐 Add JSON Schema validation to ensure full API contract verification
