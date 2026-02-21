@@ -1,6 +1,7 @@
 import pytest
+from tests.helpers.mock_responses import make_response, timetable_success
 
-pytestmark = [pytest.mark.api, pytest.mark.live]
+pytestmark = [pytest.mark.api, pytest.mark.mock]
 
 
 @pytest.mark.parametrize(
@@ -10,12 +11,18 @@ pytestmark = [pytest.mark.api, pytest.mark.live]
         ("JFK", "arrival"),
     ],
 )
-def test_timetable_contract(api_client, iata_code, flight_type):
+def test_timetable_contract(api_client, iata_code, flight_type, mock_api_client):
     params = {
         "iataCode": iata_code,
         "type": flight_type,
-        "limit": 5      
+        "limit": 5,
     }
+
+    body = timetable_success(limit=5)
+    resp = make_response(200, body)
+
+    # Apply mock and run
+    mock_api_client(resp)
 
     r = api_client.get_flights_timetable(params=params)
     assert r.status_code == 200

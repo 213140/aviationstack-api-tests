@@ -13,3 +13,17 @@ def api_client(settings: Settings) -> AviationstackClient:
         access_key=settings.access_key,
         timeout=settings.timeout_seconds,
     )
+
+
+@pytest.fixture
+def mock_api_client(api_client, monkeypatch):
+    """Return a helper that sets the session.request to always return the provided response."""
+
+    def _set_response(resp):
+        def fake_request(method, url, *, params=None, json=None, headers=None, timeout=None, **kwargs):
+            return resp
+
+        monkeypatch.setattr(api_client.client.session, "request", fake_request)
+        return api_client
+
+    return _set_response

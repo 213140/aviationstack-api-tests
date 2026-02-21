@@ -26,7 +26,7 @@ Automated API testing with Python - target API (aviationstack)
 
 > ℹ️ Timetable tests fail with **HTTP 429** due to AviationStack free-tier rate limits. This is an external API limitation and does not indicate a failure in test implementation.
 
-![alt text](image.png)
+![alt text](docs/image.png)
 
 ![Test Execution Demo](docs/demo1.gif)
 
@@ -38,7 +38,26 @@ Response structure is also validated to confirm that required fields exist and t
 
 It helps catch breaking API changes and ensures the responses are usable by clients, not just successful at the HTTP level.
 
-## 🚀 Future/Possible improvements 📈
+## 🚀 Additional improvements added 📈
 
-- 🧪 Introduce response mocking for test_timetable.py and test_timetable_negative, which are related to third-party API license restrictions (429). Since upgrading from a free to a paid license may be costly, mocking would protect tests from flakiness and reduce dependency on external API limitations.
-- 📐 Add JSON Schema validation to ensure full API contract verification
+### 1. 🧪 Introduced response mocking for test_timetable.py and test_timetable_negative, which are related to third-party API license restrictions (429). Since upgrading from a free to a paid license may be costly, mocking protect tests from flakiness and reduce dependency on external API limitations.
+
+### Running tests (mock vs live)
+Used pytest markers to separate mocked tests from live tests that call the external API.
+- Run mocked tests (no network calls):
+pytest -m mock
+- Run live integration tests (will call the external API and require `AVIATIONSTACK_ACCESS_KEY`):
+pytest -m live
+
+Notes:
+- Mocked tests use `tests/conftest_mock.py` and `tests/helpers/mock_responses.py` to patch the `requests.Session.request` call and return canned JSON responses.
+- Live tests remain annotated with the `live` marker to avoid accidental runs during regular development
+
+### EXAMPLE of using live vs mock tests - run all tests - as expected live ones failed due to 429, but mocked passed - test flakiness removed (if will use mock tests) 
+![alt text](docs/image-1.png)
+
+### 2. 📐 Added JSON Schema validation to ensure full API contract verifications - for /aircraft_types endpoint (positive case only)
+- Run: pytest -m "api and not mock and not live" -vv
+![alt text](docs/image-2.png)
+
+![alt text](docs/image-3.png)
