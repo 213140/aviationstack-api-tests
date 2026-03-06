@@ -8,10 +8,11 @@ def settings() -> Settings:
 
 @pytest.fixture(scope="session")
 def api_client(settings: Settings) -> AviationstackClient:
+    api_config = settings.get_api_config()
     return AviationstackClient.from_settings(
-        base_url=settings.base_url,
-        access_key=settings.access_key,
-        timeout=settings.timeout_seconds,
+        base_url=api_config.base_url,
+        access_key=api_config.access_key,
+        timeout=api_config.timeout_seconds,
     )
 
 

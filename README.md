@@ -7,7 +7,7 @@ Automated API testing with Python - target API (aviationstack)
 2. Create virtualenv (`python -m venv .venv`) and activate venv
 3. Install dependencies (`pip install -r requirements.txt`)
 4. Get free API key (https://aviationstack.com/signup/free)
-5. Copy `.env.example` -> `.env` and set `AVIATIONSTACK_ACCESS_KEY`
+5. Copy `.env.example` -> `.env` and set `AVIATIONSTACK_ACCESS_KEY` (and optionally `DEFAULT_API_NAME`)
 6. Run: `pytest -m api -vv`
 
 
