@@ -1,10 +1,16 @@
 import pytest
 from src.api.utils.settings import Settings
 from src.api.clients.aviationstack_client import AviationstackClient
+from src.api.utils.logging_config import setup_logging
 
 @pytest.fixture(scope="session")
 def settings() -> Settings:
     return Settings()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def configure_logging() -> None:
+    setup_logging()
 
 @pytest.fixture(scope="session")
 def api_client(settings: Settings) -> AviationstackClient:

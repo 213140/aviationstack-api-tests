@@ -61,3 +61,21 @@ Notes:
 ![alt text](docs/image-2.png)
 
 ![alt text](docs/image-3.png)
+
+## 🧾 Logging
+
+Logging is enabled for API requests and pytest output.
+
+**Defaults**
+- Console logging enabled during test runs
+- File logs written to `logs/test.log` (app logs) and `logs/pytest.log` (pytest)
+
+**Environment variables**
+- `LOG_LEVEL` (default: INFO)
+- `LOG_FILE` (default: logs/test.log)
+
+Example:
+```
+LOG_LEVEL=DEBUG
+LOG_FILE=logs/test.log
+```
