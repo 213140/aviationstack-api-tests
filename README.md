@@ -79,3 +79,6 @@ Example:
 LOG_LEVEL=DEBUG
 LOG_FILE=logs/test.log
 ```
+
+## ⚙️ CI - GitHub Actions initial setup
+- ci.yml file with initial setup was added (on every push (any branch) and PR for main branch defined CI pipeline will trigger mock tests automatically)
